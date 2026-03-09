@@ -19,7 +19,25 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "state-demo-secure" {
-  name     = "state-demo"
-  location = "eastus"
+# bestehende Resource Group einlesen
+data "azurerm_resource_group" "rg" {
+  name = "rg-dimi"
+}
+
+# AKS Cluster erzeugen
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                = "dimi-aks-demo"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  dns_prefix          = "dimiaksdemo"
+
+  default_node_pool {
+    name       = "dimi-node-pool"
+    node_count = 1
+    vm_size    = "Standard_B2s"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
