@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name       = "diminpool"
     node_count = 1
-    vm_size    = "Standard_B2s"
+    vm_size    = "Standard_B2ps_v2"
   }
 
   identity {
