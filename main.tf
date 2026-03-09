@@ -32,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "dimiaksdemo"
 
   default_node_pool {
-    name       = "dimi-node-pool"
+    name       = "dimi-npool"
     node_count = 1
     vm_size    = "Standard_B2s"
   }
